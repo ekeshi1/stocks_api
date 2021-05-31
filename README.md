@@ -2,10 +2,9 @@
 
 ## About the api 
 
-* A Scheduled Service retrieves  all the 100 stocks that compose Nasdaq-100 Index, currently the time is set every
-5 minutes because of resources. The frequency is configurable in application.yml.
+* A Scheduled Service retrieves  all the 100 stocks that compose Nasdaq-100 Index.Currently the frequency of retrieval is set every
+5 minutes because of resource limitations. The frequency is configurable in application.yml.
 * This service uses an unofficial reverse-engineered api. (https://www.nasdaq.com/market-activity/quotes/nasdaq-ndx-index)
-
 * User can register and open many accounts.
 * User can topUp an account.
 * User can buy an asset inside for an account given he has eligible funds.
