@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "44519497-a907-46da-9b58-ff65ad6ddf80",
+		"name": "Stocks Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "User Auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"erkesh@ut.ee\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsInN1YiI6ImVya2VzaEB1dC5lZSIsImlhdCI6MTYyMjAxOTY5NiwiZXhwIjoxNjI5Nzk1Njk2fQ.G7vomjZQ0QHJO6okdUF8Illh1FN0Mo_umTQJykHS-LV6b_GkrNwMz_1dyvQ5j7EgS77DM2B1rZMPbwWI2oujSQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/kot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"kot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get user Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stocks",
+			"item": [
+				{
+					"name": "Get Stock By Ticker",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsInN1YiI6ImVya2VzaEB1dC5lZSIsImlhdCI6MTYyMjExNjkxMCwiZXhwIjoxNjI5ODkyOTEwfQ.PFKzLHVSk2-CHPOvwRdS-Dk8gyb_DjWjKorDVLgtXIwTfuFkYIlp5Dj_0xmywjjKvvO3NlwYoY7kRk-39GLwLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/stocks/GME",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"stocks",
+								"GME"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Indexes",
+			"item": [
+				{
+					"name": "Get ALL Indexes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsInN1YiI6ImVya2VzaEB1dC5lZSIsImlhdCI6MTYyMjExNjkxMCwiZXhwIjoxNjI5ODkyOTEwfQ.PFKzLHVSk2-CHPOvwRdS-Dk8gyb_DjWjKorDVLgtXIwTfuFkYIlp5Dj_0xmywjjKvvO3NlwYoY7kRk-39GLwLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/indexes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"indexes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Index(together with price)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsInN1YiI6ImVya2VzaEB1dC5lZSIsImlhdCI6MTYyMjI4MTM4OCwiZXhwIjoxNjMwMDU3Mzg4fQ.3dH0XdF39MYLFDzlKZA_4s4oanNjJ_Ysw8p_cSygEozB2u4QEypclCBu6fwX3rdrx9QLfpuMj2pdjmqBvN2luQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/indexes/Nasdaq100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"indexes",
+								"Nasdaq100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gets Stocks of an index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/indexes/Nasdaq100/stocks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"indexes",
+								"Nasdaq100",
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account Holding",
+			"item": [
+				{
+					"name": "Retrieve account holdings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Buy new asset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Top Up account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6IlJPTEVfVVNFUiIsInN1YiI6ImVya2VzaEB1dC5lZSIsImlhdCI6MTYyMjMyMDY3MCwiZXhwIjoxNjMwMDk2NjcwfQ.62KlHlpq3ruIrXVwAoSetSj_HaFV0CzENkyf5Cb8HdeVMzSZZzvQq322x7z-2CV-KO33XbO7bwSzruU6OkSCug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/accounts/a15de1e4-85ac-4539-ac8d-af7bc245c12f/top-up",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"accounts",
+								"a15de1e4-85ac-4539-ac8d-af7bc245c12f",
+								"top-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@testing.com\",\n    \"password\": \"testing2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"erkeshisz4@ut.ee\",\n    \"fullName\": \"test\",\n    \"password\" : \"test\",\n    \"phone\": \"12312312\",\n    \"address\": \"Raatuse 22\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

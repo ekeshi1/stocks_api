@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-role-table" author="Erald Keshi">
+        <createTable tableName="role">
+            <column name="id" type="uuid" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(250 ${char})">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+        </createTable>
+        <addPrimaryKey tableName="role" columnNames="id" constraintName="role_pkey"/>
+    </changeSet>
+
+    <changeSet id="first-roles" author="Erald Keshi">
+        <insert tableName="role">
+            <column name="id">197d8201-c970-4f32-b50f-8b7896c8dcaa</column>
+            <column name="name">ADMINISTRATOR</column>
+        </insert>
+        <insert tableName="role">
+            <column name="name">USER</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

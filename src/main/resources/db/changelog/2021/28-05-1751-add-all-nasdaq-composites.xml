@@ -1,0 +1,9 @@
+<changeSet id="insert stock Microsoft" author="Erald Keshi">
+    <insert tableName="stock">
+        <column name="id">8f0e29d4-0eff-407d-b142-36a5a63e4aa5</column>
+        <column name="symbol">MSFT</column>
+        <column name="company_name">Microsoft</column>
+        <column name="company_website">https://www.microsoft.com/et-ee/</column>
+        <column name="description">Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington.</column>
+    </insert>
+</changeSet>

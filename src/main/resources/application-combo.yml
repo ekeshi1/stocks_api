@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://stocks_db:5432/postgres

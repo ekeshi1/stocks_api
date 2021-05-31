@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-user-index-composition-table" author="Erald Keshi">
+        <createTable tableName="index_composition">
+            <column name="index_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stock_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="boolean">
+            <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert msft-nasdaq relation" author="Erald Keshi">
+        <insert tableName="index_composition">
+            <column name="index_id">a670225f-1f91-4b58-97cf-4f000dc6d3cb</column>
+            <column name="stock_id">8f0e29d4-0eff-407d-b142-36a5a63e4aa5</column>
+            <column name="is_active">true</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

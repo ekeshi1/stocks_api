@@ -1,0 +1,46 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-account-assets-table" author="Erald Keshi">
+        <createTable tableName="account_assets">
+            <column name="id" type="uuid" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="uuid">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="asset_symbol" type="VARCHAR(6 ${char})">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="amount_in_fiat" type="numeric">
+                <constraints nullable="false" />
+            </column>
+            <column name="avg_buy_price" type="numeric">
+                <constraints nullable="false" />
+            </column>
+            <column name="nr_of_shares" type="numeric">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+        </createTable>
+        <addPrimaryKey tableName="account_assets" columnNames="id" constraintName="account_assets_pkey"/>
+        <addForeignKeyConstraint baseTableName="account_assets" baseColumnNames="account_id" constraintName="account_assets_acc_fkey" referencedTableName="account"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="account_assets" baseColumnNames="asset_symbol" constraintName="account_assets_assets_fkey" referencedTableName="stock"
+                                 referencedColumnNames="symbol"/>
+        <addUniqueConstraint tableName="account_assets" columnNames="account_id, asset_symbol "/>
+        <createIndex tableName="account_assets" indexName="symbol_index">
+            <column name="asset_symbol"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

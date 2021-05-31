@@ -1,0 +1,33 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  stocks_db:
+    container_name: stocks_db
+    image: postgres
+    restart: always
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    networks:
+      - stocksapi-network
+  stocks_api:
+    container_name: stock_api
+    build:
+      context: ../../
+    image: stock_api:latest
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    networks:
+      - stocksapi-network
+    links:
+      - stocks_db:stocks_db
+    depends_on:
+      - stocks_db
+networks:
+  stocksapi-network:
+    driver: bridge

@@ -1,0 +1,48 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-stock-price-table" author="Erald Keshi">
+        <createTable tableName="stock_price">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="symbol" type="VARCHAR(6 ${char})">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="market_cap" type="numeric">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_sale_price" type="numeric">
+                <constraints nullable="true"/>
+            </column>
+            <column name="percent_change" type="numeric">
+                <constraints nullable="true"/>
+            </column>
+            <column name="net_change" type="numeric">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+
+        </createTable>
+    </changeSet>
+
+    <!--<changeSet id="insert msft-nasdaq relation" author="Erald Keshi">
+        <insert tableName="index_composition">
+            <column name="stock_id">8f0e29d4-0eff-407d-b142-36a5a63e4aa5</column>
+            <column name="market_cap">12312312.23</column>
+            <column name="last_sale_price">252.1</column>
+            <column name="market_cap">12312312.23</column>
+            <column name="market_cap">12312312.23</column>
+        </insert>
+    </changeSet>-->
+
+</databaseChangeLog>

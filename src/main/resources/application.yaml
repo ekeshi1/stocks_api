@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    username: postgres
+    password: example
+    url: jdbc:postgresql://localhost:5432/postgres
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+
+server:
+  port: 8081
+
+
+logging:
+  level:
+    org:
+      springframework:
+        transaction:
+          interceptor: TRACE
+
+jwt:
+  signing:
+    key: stocks_api_secret
+  authorities:
+    key: roles
+
+stock:
+  price:
+    nasdaq:
+      scraping_time_millis : 300000

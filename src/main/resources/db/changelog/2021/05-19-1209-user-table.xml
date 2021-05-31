@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-user-table" author="Erald Keshi">
+        <createTable tableName="user">
+            <column name="id" type="uuid" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(250 ${char})">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(250 ${char})">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="VARCHAR(250 ${char})">
+                <constraints nullable="true"/>
+            </column>
+            <column name="phone" type="VARCHAR(250 ${char})">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address" type="VARCHAR(250 ${char})">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+        </createTable>
+        <addPrimaryKey tableName="user" columnNames="id" constraintName="user_pkey"/>
+    </changeSet>
+
+</databaseChangeLog>

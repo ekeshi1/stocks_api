@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="first-user" author="Erald Keshi">
+        <insert tableName="user">
+            <!--      admin@testing.com / testing2-->
+            <column name="id">24c11b7a-0d24-4933-824f-7d5511930a7c</column>
+            <column name="username">admin@testing.com</column>
+            <column name="password">$2a$10$w153qHCFyYumvLd1LdP7ueQ.vsFJxSKlihsKk3WT6.UNg5f8QjPnu</column>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id">24c11b7a-0d24-4933-824f-7d5511930a7c</column>
+            <column name="role_id">197d8201-c970-4f32-b50f-8b7896c8dcaa</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

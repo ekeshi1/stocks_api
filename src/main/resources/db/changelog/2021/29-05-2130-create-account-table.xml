@@ -1,0 +1,34 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-accounts-table" author="Erald Keshi">
+        <createTable tableName="account">
+            <column name="id" type="uuid" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(250 ${char})">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="fiat_balance" type="VARCHAR(250 ${char})">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+        </createTable>
+        <addPrimaryKey tableName="account" columnNames="id" constraintName="account_pkey"/>
+        <addForeignKeyConstraint baseTableName="account" baseColumnNames="user_id" constraintName="account_fkey" referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

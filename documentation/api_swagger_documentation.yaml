@@ -1,0 +1,446 @@
+swagger: "2.0"
+consumes:
+  - application/json
+info:
+  version: 1.0.0
+  title: Restful StocksApi documentation 
+  description: |-
+    Existing endpoints exposed by the StocksApi
+basePath: /api
+
+schemes:
+  - "http"
+
+tags:
+  - name: "Indexes"
+    description: "Endpoints related to indexes. Currently only Nasdaq100 index(NDX) is tracked."
+
+  - name: "Stocks"
+    description: "Enpoints related to stocks. Currently only stocks that compose Nasdaq100 index are supported.(102 tickers)"
+  - name: "Accounts"
+    description: "Endpoints related to accounts."
+  - name : "Auth" 
+    description: "Endpoints related to authentication. Jwt bearer token mechanism is used."
+  - name : "User" 
+    description: "Endpoints related to authentication. Jwt bearer token mechanism is used."  
+
+
+paths:
+  /register:
+    post:
+      summary: "Register for the first time as API user!"
+      parameters: 
+          - name: userRequest
+            in: "body"
+            description: "User data"
+            required: true
+            schema:
+              $ref : '#/definitions/UserModel'
+      responses:
+          "200":
+            schema:
+              $ref: "#/definitions/UserModel"
+            description: "Successfully registered"
+          "500":
+            description: "Cannot register. email may be taken"
+      tags: 
+        - Auth
+  /authenticate:
+    post:
+      summary: "Authenticate with correct credentials and retrieve jwt token."
+      parameters:
+          - name: "jwtRequest"
+            in: "body"
+            description: 'Auth data'
+            required: true
+            schema:
+              $ref : '#/definitions/JwtRequest'
+      responses:
+          "200":
+            description: "OK"
+            schema:
+              $ref: "#/definitions/JwtResponse"
+          "500":
+            description: "Cannot register. email may be taken"
+      tags:
+        - Auth
+            
+  /users/details:
+    get:
+      summary: "Get details of the authenticated users(Id included)."
+      responses: 
+        "200": 
+          description: "OK"
+          schema:
+            $ref: '#/definitions/UserModel'  
+        "403":
+          description: "Forbidden! Make sure Bearer header is included or reauthenticate."
+      tags: 
+        - User
+  
+  /users/{userId}/accounts:
+    get:
+      summary: "Gets all accounts of the user"
+      parameters:
+        - name: userId
+          in: "path"
+          required: true
+          type: "string"
+          format: "uuid4"
+      responses:
+        "200":
+          description : "OK"
+          schema: 
+            $ref: '#/definitions/UserAccounts'
+        "403":
+          description: "Forbidden"
+        "400":
+          description: "Some other error"
+      tags:
+        - User
+    post:
+      summary: "Create a new account as an authenticated user"
+      parameters:
+        - name: userId
+          in: "path"
+          required: true
+          type: "string"
+          format: "uuid4"
+        - name: accountRequest
+          in: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/AccountCreationRequest'
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: '#/definitions/UserAccount'
+        "403":
+          description: "Forbidden"
+        "400":
+          description: "Some other error"    
+      tags:
+        - User
+          
+  /stocks/{ticker}:
+    get:
+      summary: "Get latest price of a stock by ticker.(Doesn't need auth)"
+      parameters:
+        - name: ticker
+          in: "path"
+          type: "string"
+          required: true
+      responses: 
+        "200":
+          description: "OK"
+          schema: 
+            $ref: "#/definitions/AssetResponse"
+        "400":
+          description: "Some other error"  
+      tags:
+        - Stocks
+  
+  /indexes:
+    get:
+      summary: "Get all tracked indexes"
+      responses:
+        "200": 
+          description: "OK"
+          schema: 
+            $ref: '#/definitions/IndexesResponse'
+        "400":
+          description: "Other error"    
+      tags:
+        - Indexes
+        
+  /indexes/{indexName}:
+    get:
+      summary: "Get a single tracked index by its name"
+      parameters:
+        - name: "indexName"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        "200": 
+          description: "OK"
+          schema: 
+            $ref: '#/definitions/IndexModel'
+        "400":
+          description: "Other error"    
+      tags:
+        - Indexes      
+        
+  /indexes/{indexName}/stocks:
+     get:
+      summary: "Get stock which compose a specific index"
+      parameters:
+        - name: "indexName"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        "200": 
+          description: "OK"
+          schema: 
+            $ref: '#/definitions/AssetResponse'
+        "400":
+          description: "Other error"    
+      tags:
+        - Indexes  
+      
+  
+  
+  /accounts/{accountId}/top-up:
+    post:
+      summary: "Add money into the account"
+      parameters:
+        - name: "accountId"
+          in: "path"
+          required: true
+          type: "string"
+          format: "uuid4"
+        - name: "ammountRequest"
+          required: true
+          in: "body"
+          schema:
+            $ref: "#/definitions/AmountRequest"
+      responses:
+        "200":
+          description: "Ok"
+          schema:
+            $ref: '#/definitions/UserAccount'
+        "403":
+          description: "Forbidden"
+        "400":
+          description: "Some other error"   
+      tags:
+        - Accounts
+    
+  /accounts/{accountId}/assets:
+      get:
+        summary: "Get all assets owned by an account"
+        parameters:
+        - name: "accountId"
+          in: "path"
+          required: true
+          type: "string"
+          format: "uuid4"
+        responses:
+          "200":
+            description: "Ok"
+            schema: 
+              $ref: '#/definitions/AssetList'
+          "403":
+            description: "Forbidden"
+          "400":
+            description: "Some other error" 
+        tags: 
+          - Accounts
+      post:
+        summary: "Buy an asset(stock)"
+        parameters:
+        - name: "accountId"
+          in: "path"
+          required: true
+          type: "string"
+          format: "uuid4"
+        - name: "assetBuyRequest"
+          in: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/AssetBuyRequest'
+        responses:
+          "200":
+            description: "Ok"
+            schema: 
+              $ref: '#/definitions/AssetList'
+          "403":
+            description: "Forbidden"
+          "400":
+            description: "Some other error" 
+        tags: 
+          - Accounts    
+
+        
+
+    
+  
+    
+    
+definitions:
+  AssetBuyRequest:
+    type: object
+    properties:
+      amount:
+          $ref: '#/definitions/AmountRequest'
+      assetName:
+        type: "string"
+  AssetList:
+    type: array
+    items: 
+      $ref: '#/definitions/AssetHolding'
+  AmountRequest:
+    type: object
+    required:
+      - amount
+    properties:
+      amount: 
+        type: "number"
+        format: "bigdecimal"
+  IndexesResponse:
+    type: array
+    items:
+      $ref: '#/definitions/IndexModel'
+  IndexModel:
+    type: object
+    properties:
+      id:
+        type: "string"
+        format: "uuid4"
+      name:
+        type: "string"
+      websiteUrl:
+        type: "string"
+        format: "url"
+      description:
+        type: "string"
+      price:
+        type: "number"
+        format: "bigdecimal"
+        description: "Tracked price of the index."
+  AssetResponse:
+    type: object
+    properties:
+      id:
+        type: "string"
+        format: "uuid4"
+      symbol:
+        type: "string"
+      companyName:
+        type: "string"
+      companyWebsite:
+        type: "string"
+      description:
+        type: "string"
+      marketCap:
+        type: number
+        format: "bigdecimal"
+      lastSalePrice:
+        type: number
+        format: "bigdecimal"
+      netChange:
+        type: number
+        format: "bigdecimal"
+      percentChange:
+        type: number
+        format: "bigdecimal"
+  AccountCreationRequest:
+    type: object
+    required:
+      - name
+    properties:
+      name: 
+        type: "string"
+  UserAccounts:
+    type: array
+    items:         
+      $ref: "#/definitions/UserAccount"
+  UserAccount: 
+    type: object
+    properties:
+      id:
+        type: "string"
+        format: "uuid4"
+      name: 
+        type: "string"
+      fiatBalance:
+        type: number
+        format: "bigdecimal"
+      currentAssetsValue:  
+        type: number
+        format: "bigdecimal"
+        description: "Current value of all account's holdings (without fiatBalance)"
+      netChange: 
+        type: number
+        format: "bigdecimal"
+      percentChange: 
+        type: "number"
+        format: "bigdecimal"
+      holdings:
+        type: array
+        items:
+          $ref: '#/definitions/AssetHolding'
+    
+    
+  AssetHolding:
+    type: object
+    properties:
+      id: 
+        type: "string"
+        format: "uuid4"
+      assetSymbol: 
+        type: "string"
+        description: "Stock or index symbol; ex: MSFT"
+      amountInFiat: 
+        type: "number"
+        format: "bigdecimal"
+      avgBuyPrice:
+        type: "number"
+        format: "bigdecimal"
+      nrOfShare:
+        type: "number"
+        format: "bigdecimal"
+      currentValueInFiat:
+        type: "number"
+        format: "bigdecimal"
+      netChange:
+        type: "number"
+        format: "bigdecimal"
+      percentChange:
+        type: "number"
+        format: "bigdecimal"
+  UserModel:
+    type: "object"
+    required:
+      - email
+    properties:
+      id:
+        type: "string"
+        format: "uuid4"
+        description: "Only received after user registration!"
+      email: 
+        type: "string"
+        format: "email"
+      fullName: 
+        type: "string"
+      password:
+        type: "string"
+      phone: 
+        type: "string"
+      address:
+        type: "string"
+  JwtRequest:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+  JwtResponse:
+    type: object
+    required:
+      - jwtToken
+    properties:
+      jwtToken:
+        type: "string"
+        format: "jwt"
+      
+
+
+

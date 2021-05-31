@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="char" value=""/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
+    <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
+    <!--For accurate money storage   -->
+    <property name="numeric" value="numeric" dbms="postgresql"/>
+    <property name="bool" value="bool" dbms="postgresql"/>
+
+    <!-- User Auth -->
+    <include file="db/changelog/2021/05-18-1200-uuid-extension.sql"/>
+    <include file="db/changelog/2021/05-19-1209-user-table.xml"/>
+    <include file="db/changelog/2021/05-19-1330-user-role-table.xml"/>
+    <include file="db/changelog/2021/05-19-1339-roles-table.xml"/>
+    <include file="db/changelog/2021/05-25-1129-first-user.xml"/>
+
+    <!--Stocks-->
+    <include file="db/changelog/2021/26-05-1620-index-table.xml"/>
+    <include file="db/changelog/2021/26-05-1642-stock-table.xml"/>
+    <include file="db/changelog/2021/26-05-1718-create-index-composition.xml"/>
+    <include file="db/changelog/2021/27-05-1034-create-stock-price.xml"/>
+
+    <!--Account-->
+    <include file="db/changelog/2021/29-05-2130-create-account-table.xml"/>
+    <include file="db/changelog/2021/30-05-0044-create-account-assets.xml"/>
+
+</databaseChangeLog>
+

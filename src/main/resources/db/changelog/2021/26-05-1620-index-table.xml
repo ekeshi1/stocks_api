@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create-index-table" author="Erald Keshi">
+        <createTable tableName="index">
+            <column name="id" type="uuid" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(250 ${char})">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="website_url" type="VARCHAR(250 ${char})">
+                <constraints nullable="true" />
+            </column>
+            <column name="description" type="VARCHAR(250 ${char})">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by" type="VARCHAR(50 ${char})" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP(3) WITH TIME ZONE" defaultValue="now">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50 ${char})"/>
+            <column name="last_modified_date" type="TIMESTAMP(3) WITH TIME ZONE"/>
+        </createTable>
+        <addPrimaryKey tableName="index" columnNames="id" constraintName="index_pkey"/>
+    </changeSet>
+    <changeSet id="insert index(Nasdaq 100 )" author="Erald Keshi">
+        <insert tableName="index">
+            <column name="id">a670225f-1f91-4b58-97cf-4f000dc6d3cb</column>
+            <column name="name">Nasdaq100</column>
+            <column name="website_url">https://www.nasdaq.com/</column>
+            <column name="description">Tracks 100 non financial Us companies(mostly tech).</column>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
